@@ -2,49 +2,54 @@
   (:require [quil.core :as q :include-macros true]
             [quil.middleware :as m]))
 
+(def window-width 600)
+(def window-height 450)
+(def move-speed 10)
+
 (defn setup []
-  ; Set frame rate to 30 frames per second.
-  (q/frame-rate 30)
-  ; Set color mode to HSB (HSV) instead of default RGB.
-  (q/color-mode :hsb)
-  ; setup function returns initial state. It contains
-  ; circle color and position.
-  {:color 0
-   :angle 0})
+  (q/frame-rate 15)
+  (q/background 11)
+  {:hline-position {:x 300 :y 100}
+   :hline-direction {:x 1 :y 1}
+   :vline-position {:x (- window-width 200) :y (- window-height 100)}
+   :vline-direction {:x -1 :y -1}})
+
+(defn update-ball [position direction]
+  (let [{x :x y :y} position
+        {dx :x dy :y} direction
+        dx-next (cond (< x 0) 1
+                      (> x window-width) -1
+                      :else dx)
+        dy-next (cond (< y 0) 1
+                      (> y window-height) -1
+                      :else dy)]
+    [{:x (+ x (* move-speed dx-next))
+      :y (+ y (* move-speed dy-next))}
+     {:x dx-next :y dy-next}]))
 
 (defn update-state [state]
-  ; Update sketch state by changing circle color and position.
-  {:color (mod (+ (:color state) 0.7) 255)
-   :angle (+ (:angle state) 0.1)})
+  (let [[h-pos h-dir] (update-ball (:hline-position state) (:hline-direction state))
+        [v-pos v-dir] (update-ball (:vline-position state) (:vline-direction state))]
+    {:hline-position h-pos
+     :hline-direction h-dir
+     :vline-position v-pos
+     :vline-direction v-dir}))
 
 (defn draw-state [state]
-  ; Clear the sketch by filling it with light-grey color.
-  (q/background 240)
-  ; Set circle color.
-  (q/fill (:color state) 255 255)
-  ; Calculate x and y coordinates of the circle.
-  (let [angle (:angle state)
-        x (* 150 (q/cos angle))
-        y (* 150 (q/sin angle))]
-    ; Move origin point to the center of the sketch.
-    (q/with-translation [(/ (q/width) 2)
-                         (/ (q/height) 2)]
-      ; Draw the circle.
-      (q/rect x y 100 100))))
+  (q/stroke 255)
+  (q/stroke-weight 2)
+  (let [{{h-x :x h-y :y} :hline-position
+         {v-x :x v-y :y} :vline-position} state]
+    (q/line [(- h-x 50) h-y] [(+ h-x 50) h-y])
+    (q/line [v-x (- v-y 50)] [v-x (+ v-y 50)])))
 
-; this function is called in index.html
 (defn ^:export run-sketch []
   (q/defsketch genuary-2025
     :host "genuary-2025"
-    :size [500 500]
-    ; setup function called only once, during sketch initialization.
+    :size [window-width window-height]
     :setup setup
-    ; update-state is called on each iteration before draw-state.
     :update update-state
     :draw draw-state
-    ; This sketch uses functional-mode middleware.
-    ; Check quil wiki for more info about middlewares and particularly
-    ; fun-mode.
     :middleware [m/fun-mode]))
 
 ; uncomment this line to reset the sketch:
