@@ -9,4 +9,6 @@ pom.xml.asc
 /.nrepl-port
 figwheel_server.log
 .lsp
-.clj-kondo/.cache
+.clj-kondo
+resources/public/js
+.rebel_readline_history
