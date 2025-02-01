@@ -14,7 +14,7 @@
   {:ticks (inc (:ticks state))})
 
 (defn draw-state [state]
-  (q/background 13)
+  (q/background 0x12 0x12 0x16)
   (q/stroke-weight 1)
   (let [focal-y (+ (/ window-height 2)
                    (* (/ window-height 2)
@@ -22,13 +22,9 @@
         focal-x (+ (/ window-width 2)
                    (* (/ window-width 2)
                       (q/cos (/ (:ticks state) 10))))]
-    ; (q/stroke 127 255 0)
-    ; (q/line [0 focal-y] [window-width focal-y])
-    ; (q/stroke 255 127 0)
-    ; (q/line [focal-x 0] [focal-x window-height])
 
-    (q/stroke 255 255 255)
-    (doseq [i (range 8)]
+    (q/stroke 0xe8 0xe6 0xe1)
+    (doseq [i (range 16)]
       (let [y1 (/ focal-y
                   (+ 2 i))
             y2 (- window-height
@@ -39,10 +35,10 @@
             x2 (- window-width
                   (/ (- window-width focal-x)
                      (+ 2 i)))]
-        (q/line [0 y1] [window-width y1])
-        (q/line [0 y2] [window-width y2])
-        (q/line [x1 0] [x1 window-height])
-        (q/line [x2 0] [x2 window-height])))))
+        (q/line [x1 y1] [x2 y1])
+        (q/line [x1 y2] [x2 y2])
+        (q/line [x1 y1] [x1 y2])
+        (q/line [x2 y1] [x2 y2])))))
 
 (declare genuary-2025)
 (defn ^:export run-sketch []
