@@ -4,10 +4,10 @@
 
 (def window-width 600)
 (def window-height 450)
-(def move-speed 0.085)
+(def move-speed 0.04)
 
 (defn setup []
-  (q/frame-rate 15)
+  (q/frame-rate 30)
   (q/color-mode :hsl 1.0)
   {:ticks 0})
 
