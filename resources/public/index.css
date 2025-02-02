@@ -1,0 +1,39 @@
+
+:root {
+    --font: "Work Sans", sans-serif;
+    --bg: #ffffff;
+    --fg: #131416;
+}
+
+body {
+    font-family: var(--font);
+    font-size: 1rem;
+    margin: 0 auto;
+    max-width: 600px;
+
+    background: var(--bg);
+    color: var(--fg);
+}
+
+h1 {
+    text-align: center;
+}
+
+.day-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.prompt::before {
+    content: "PROMPT";
+    font-weight: bold;
+    border-right: 1px solid var(--fg);
+    padding-right: 0.5em;
+}
+
+.prompt {
+    border: 1px solid var(--fg);
+    padding: 0.5em 1em;
+    margin: 0.5em 0 1em 0;
+}
+
