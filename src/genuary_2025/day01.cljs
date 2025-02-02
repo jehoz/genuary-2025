@@ -8,13 +8,14 @@
 
 (defn setup []
   (q/frame-rate 15)
+  (q/color-mode :hsl 1.0)
   {:ticks 0})
 
 (defn update-state [state]
   {:ticks (inc (:ticks state))})
 
 (defn draw-state [state]
-  (q/background 0x12 0x12 0x16)
+  (q/background 0.667 0.10 0.08)
   (q/stroke-weight 1)
   (let [half-w (/ window-width 2)
         half-h (/ window-height 2)
@@ -25,8 +26,8 @@
                    (* half-w
                       (q/cos (* 1 (:ticks state) move-speed))))]
 
-    (q/stroke 0xe8 0xe6 0xe1)
     (doseq [i (range 16)]
+      (q/stroke 0.12 0.10 (* 0.06 (- 16 i)))
       (let [y1 (/ focal-y
                   (+ 2 i))
             y2 (- window-height
