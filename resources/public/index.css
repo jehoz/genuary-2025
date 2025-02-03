@@ -19,6 +19,12 @@ h1 {
     text-align: center;
 }
 
+hr {
+    margin: 3em 0;
+    border: none;
+    border-top: 1px solid var(--fg);
+}
+
 .day-header {
     font-size: 1.5rem;
     font-weight: bold;
