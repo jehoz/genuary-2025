@@ -45,6 +45,27 @@ hr {
     color: var(--fg);
 }
 
+.day-link {
+    display: inline-block;
+    border: 1px solid var(--fg);
+    color: var(--fg);
+
+    margin: 0.25em;
+    width: 2em;
+    height: 2em;
+
+    font-size: 1.7em;
+    line-height: 2em;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.day-link:hover {
+    background: var(--fg);
+    color: var(--bg);
+}
+
 .day-header {
     font-size: 1.5rem;
     font-weight: bold;
