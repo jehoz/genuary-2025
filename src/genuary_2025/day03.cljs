@@ -42,7 +42,7 @@
 (declare day-03)
 (defn ^:export run-sketch []
   (q/defsketch day-03
-    :host "day-03"
+    :host "canvas"
     :size [window-width window-height]
     :setup setup
     :update update-state
